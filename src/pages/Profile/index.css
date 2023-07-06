@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Poppins:wght@300;600;700&display=swap');
+
+.MembershipBody {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.TopHeader {
+    width: 100%;
+    height: 6.5rem;
+    background-color: #bd1b58;
+}
+
+.HeaderContents {
+    width: 82%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Logo h1 {
+    font-family: 'Lato', sans-serif;
+    font-size: 45px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.MiddleText p {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    line-height: 29px;
+}
+
+.MemberAreaBtn {
+    width: 230px;
+    height: 55px;
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: #c393c6;
+    border-width: 3px;
+    outline: none;
+    color: #FFFFFF;
+    transition: all 300ms ease;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 16px;
+}
+
+.MemberAreaBtn:hover {
+    border-color: #FFFFFF;
+}
+
+.ProfileDetals {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ProfileDetailsForm {
+    background-color: #bd1b58;
+    padding: 15px;
+    display: flex;
+    gap: 13px;
+    flex-direction: column;
+}
+
+.ProfileDetailsForm input {
+    width: 350px;
+    padding: 7px 5px;
+    outline: none;
+}
+
+.ProfileDetailsForm button {
+    padding: 7px 0;
+    background-color: #FFFFFF;
+    color: #bd1b58;
+    border: none;
+    cursor: pointer;
+    font: 16px;
+    font-weight: 700;
+}

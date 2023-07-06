@@ -1,0 +1,35 @@
+.CreatingSubscriptionBody {
+    width: 100%;
+    height: 100vh;
+}
+
+.AddExam {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AddExamForm {
+    background-color: #bd1b58;
+    padding: 15px;
+    display: flex;
+    gap: 13px;
+    flex-direction: column;
+}
+
+.AddExamForm input {
+    width: 350px;
+    padding: 7px 5px;
+    outline: none;
+}
+
+.AddExamForm button {
+    padding: 7px 0;
+    background-color: #FFFFFF;
+    color: #bd1b58;
+    border: none;
+    cursor: pointer;
+    font: 16px;
+    font-weight: 700;
+}
