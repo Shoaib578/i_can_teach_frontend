@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import './index.css'
 import { useNavigate } from "react-router-dom"; 
-import { get_all_exams } from "../../call_apis";
+import { check_sub_exam_given, get_all_exams } from "../../call_apis";
 import { message } from "antd";
-
+import ExamDetailsContainer from "./container";
+const user = localStorage.getItem('user')
+const parse = JSON.parse(user)
 const ExamDetails = () => {
     const [data,setData]= useState([])
     const navigate = useNavigate()
-    const AttemptExam = () => {
-        navigate('/exam/attempt')
-    }
+    
 
     const GetAllExams = async()=>{
         await get_all_exams()
@@ -20,6 +20,8 @@ const ExamDetails = () => {
             message.error("Something went wrong")
         })
     }
+
+   
 
     useEffect(()=>{
         GetAllExams()
@@ -85,14 +87,7 @@ const ExamDetails = () => {
 
             <section className="Posters">
                 {data.map((item,index)=>{
-                     return <div key={index} className="Poster1">
-                     <p className="Title">{item.title}</p>
-                     <p>{item.description}</p>
-                    
-                     <div className="SVEBtn">
-                     <button onClick={() => AttemptExam()}>Start Virtual Exam</button>
-                     </div>
-                 </div>
+                     return <ExamDetailsContainer item={item} key={index} user_id={parse._id}/>
                 })}
                
              

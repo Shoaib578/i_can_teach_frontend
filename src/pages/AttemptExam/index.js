@@ -1,18 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './index.css';
 //icons
 import { LuLogOut } from "react-icons/lu";
-
+import { check_sub_exam_given, check_user_subscription, get_sub_exams } from "../../call_apis";
+import { message } from "antd";
+import SubExamContainer from "./container";
+const user = localStorage.getItem("user");
+const parse = JSON.parse(user)
 const AttemptExam = () => {
+    const [data,setData] = useState([])
+    
     const navigate = useNavigate()
     const BuyMembershipPlain = () => {
         navigate('/membership')
     }
 
-    const Exams = () => {
-        navigate('/exam/paper/attempt')
+    const CheckUserSubscription = async()=>{
+        await check_user_subscription(parse._id)
+        .then(res=>{
+           if(res.data.has_subscription == false){
+            message.error("You dont have a subscription.Please Buy a Subscription to be able to discover")
+            navigate('/membership')
+           }
+        })
+        .catch(err=>{
+           
+
+            message.error("Something Went Wrong")
+        })
     }
+  
+
+    const GetSubExams = async()=>{
+        const exam_id = await window.location.pathname.split('/')[3]
+        await get_sub_exams(exam_id)
+        .then(res=>{
+            setData(res.data.data)
+
+        })
+        .catch(err=>{
+            message.error("Something Went Wrong")
+        })
+    }
+
+    const NavigateAttemptPaper = (sub_exam_id) => {
+       if(!user){
+        message.error("Please Login to be able to access")
+        return
+       }
+
+        navigate(`/exam/paper/attempt/${sub_exam_id}`)
+    }
+
+
+    const CheckExamGiven = async(sub_exam_id)=>{
+         const response = await check_sub_exam_given(parse._id,sub_exam_id)
+         console.log(response)
+         return <h1>{response}</h1>
+    }
+
+
+    useEffect(()=>{
+        if(user){
+            CheckUserSubscription()
+
+            GetSubExams()
+
+        }else{
+            message.error("Please Login to be able to access")
+            navigate('/login')
+        }
+    },[])
     return (
         <div className="MembershipBody">
 
@@ -36,26 +95,13 @@ const AttemptExam = () => {
             </div>
 
             <div class="table-wrapper">
-                <h1 style={{color:'black', textAlign:'center', marginBottom:10}}>Sub Exams</h1>
-    <table class="fl-table">
-        <thead>
-        <tr >
-            <th>Serial No</th>
-            <th>Title</th>
-            <th>Description</th>
-        </tr>
-        </thead>
-        <tbody>
-    
-                <tr style={{cursor:'pointer'}} onClick={() => Exams()}>
-                    <td>Serial No</td>
-                    <td>Title</td>
-                    <td>Description</td>
-                </tr>
-            
-        
-        </tbody>
-    </table>
+            <section className="Posters">
+                {data.map((item,index)=>{
+                     return <SubExamContainer key={index} item={item} user_id={parse._id}/>
+                })}
+               
+             
+            </section>
 
 </div>
           

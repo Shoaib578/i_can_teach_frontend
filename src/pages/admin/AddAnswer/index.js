@@ -1,51 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import './index.css'
 import AdminNav from '../../../components/AdminNav'
+import { add_answer } from "../../../call_apis";
+import { message } from "antd";
 
 const AddAnswer = () => {
+
+    const [answer,setAnswer] = useState('')
+    const [correct,setCorrect] = useState('')
+
+    const insert_answer = async()=>{
+        const question_id = await window.location.pathname.split('/')[4]
+        if(answer.length<1 || correct.length<1){
+            message.error("Please fill all fields")
+            return
+        }
+        await add_answer(question_id, answer, correct)
+        .then(res=>{
+            if(res.data.is_added){
+                message.success("Answer added successfully")
+            }
+        })
+        .catch(err=>{
+            message.error("Something went wrong")
+        })
+    }
     return (
         <div className="CreatingSubscriptionBody">
             <AdminNav/>
 
 
             <div className="AddExam">
-                <h1>Add answers</h1>
+                <h1>Add answer</h1>
                 <div className="AddExamForm">
-                    <input type="text" placeholder="Title"/>
-                    <select>
-                        <option>Select Question</option>
-                        <option>Question</option>
-                        <option>Question</option>
-                        <option>Question</option>
-                        <option>Question</option>
+                    <input type="text" placeholder="Answer" onChange={(val)=>setAnswer(val.target.value)}/>
+                    <select onChange={(val)=>setCorrect(val.target.value)}>
+                        <option>Correct</option>
+                        <option value={true}>Yes</option>
+                        <option value={false}>No</option>
+                      
                     </select>
 
-                    <select>
-                        <option>Select Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                    </select>
-
-                    <select>
-                        <option>Select sub-exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                        <option>Exam</option>
-                    </select>
-
-                    <label style={{color:'white'}} htmlFor="answer">Add answer: </label>
-
-                    <input id="answer" type="text" placeholder="option 1"/>
-                    <input id="answer" type="text" placeholder="option 2"/>
-                    <input id="answer" type="text" placeholder="option 3"/>
-                    <input id="answer" type="text" placeholder="option 4"/>
+                   
                     
-                    <button>Add</button>
+                    <button onClick={insert_answer}>Add</button>
                 </div>
             </div>
 

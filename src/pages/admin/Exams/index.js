@@ -8,8 +8,9 @@ import { message } from "antd";
 const Exams = () => {
     const [data,setData] = useState([])
     const navigate = useNavigate()
-    const SubExams = () => {
-        navigate('/admin/exams/subexams')
+    const SubExams = (exam_id) => {
+        console.log(exam_id)
+        navigate(`/admin/exams/subexams/${exam_id}`)
 
     }
 
@@ -35,6 +36,8 @@ const Exams = () => {
             message.error("Something went wrong")
         })
     }
+
+   
     useEffect(()=>{
         GetAllExams()
     },[])
@@ -51,14 +54,13 @@ const Exams = () => {
             <th>Title</th>
             <th>Description</th>
             <th></th>
-
         </tr>
         </thead>
         <tbody>
                     {data.map((item,index)=>{
                     return <tr key={index} style={{cursor:'pointer'}} >
                                         
-                    <td onClick={()=>SubExams()}>{item.title}</td>
+                    <td onClick={()=>SubExams(item._id)}>{item.title}</td>
                     <td>{item.description}</td>
                     <td><button onClick={()=>DeleteExam(item._id)}  className="DeleteBtn">Delete</button></td>
 

@@ -46,8 +46,7 @@ const Navbar = () => {
                 <li onClick={() => Exams()}>Exams</li>
                 <li onClick={() => AddSubscription()}>Add subscription</li>
                 <li onClick={() => AddExam()}>Add exam</li>
-                <li onClick={() => AddQuestion()}>Add question</li>
-                <li onClick={() => AddAnswers()}>Add answers</li>
+               
                 <li onClick={() => Logout()}>Logout</li>
 
             </ul>

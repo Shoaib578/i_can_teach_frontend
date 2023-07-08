@@ -9,7 +9,7 @@ import ExamDetails from "../../components/ExamDetails";
 import ExamHistory from "../../components/ExamHistory";
 import { get_all_exams } from "../../call_apis";
 import { message } from "antd";
-
+const user = localStorage.getItem('user')
 const Home = () => {
     const [data,setData] = useState([])
     const [portion, setPortion] = useState(true)
@@ -19,6 +19,10 @@ const Home = () => {
     }
 
     const GotoProfile = () => {
+        if(!user){
+            message.error("Please Login to be able to access")
+            return
+        }
         navigate('/profile')
     }
 

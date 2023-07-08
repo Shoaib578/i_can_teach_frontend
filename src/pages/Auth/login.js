@@ -4,6 +4,7 @@ import { Spinner } from "react-activity";
 import "react-activity/dist/library.css";
 import { login_user } from "../../call_apis";
 import { message } from "antd";
+const user = localStorage.getItem('user')
 export default class Login extends React.Component {
 
     state = {
@@ -39,6 +40,14 @@ export default class Login extends React.Component {
             message.error("Something Went Wrong")
             this.setState({is_loading:false})
         })
+    }
+
+    componentDidMount(){
+        if(user){
+            message.error("Please Login to be able to access")
+           window.location = "/login"
+
+        }
     }
     render(){
         return(

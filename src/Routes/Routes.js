@@ -24,7 +24,9 @@ import AttemptExam from "../pages/AttemptExam";
 import AttemptPaper from "../pages/AttemptPaper";
 import Login from "../pages/Auth/login";
 import Register from "../pages/Auth/register";
-
+import AddSubExam from "../pages/admin/AddSubExam";
+import BuyMemberShip from "../pages/Membership/buy_membership";
+import AfterConfirmPayment from "../pages/Membership/after_confirm_payment"
 const admin = localStorage.getItem('admin');
 
 const Routes = () => {
@@ -45,9 +47,13 @@ const Routes = () => {
             <Switch>
             <Route exact path="/"  element={<Home/>}/>
             <Route exact path="/membership"  element={<Membership/>}/>
+            <Route exact path="/buy_membership"  element={<BuyMemberShip/>}/>
+            <Route exact path="/bought_membership/:membership_id"  element={<AfterConfirmPayment />}/>
+
+
             <Route exact path="/profile"  element={<Profile/>}/>
-            <Route exact path="/exam/attempt"  element={<AttemptExam/>}/>
-            <Route exact path="/exam/paper/attempt"  element={<AttemptPaper/>}/>
+            <Route exact path="/exam/attempt/:exam_id"  element={<AttemptExam/>}/>
+            <Route exact path="/exam/paper/attempt/:sub_exam_id"  element={<AttemptPaper/>}/>
             <Route exact path="/answers"  element={<Answers/>}/>
 
             <Route exact path="/login" element={<Login />} />
@@ -58,11 +64,13 @@ const Routes = () => {
             <Route exact path="/admin/subscription/add"  element={<AddSubscription/>}/>
             <Route exact path="/admin/exams"  element={<Exams/>}/>
             <Route exact path="/admin/exams/add"  element={<AddExam/>}/>
-            <Route exact path="/admin/exams/subexams"  element={<SubExams/>}/>
-            <Route exact path="/admin/exams/subexams/questions"  element={<Questions/>}/>
-            <Route exact path="/admin/question/add"  element={<AddQuestion/>}/>
-            <Route exact path="/admin/exams/subexams/answers"  element={<Answers/>}/>
-            <Route exact path="/admin/answer/add"  element={<AddAnswer/>}/>
+            <Route exact path="/admin/exams/subexams/:exam_id"  element={<SubExams/>}/>
+            <Route exact path="/admin/exams/add_subexams/:exam_id"  element={<AddSubExam/>}/>
+
+            <Route exact path="/admin/exams/subexams/questions/:sub_exam_id"  element={<Questions/>}/>
+            <Route exact path="/admin/question/add/:sub_exam_id"  element={<AddQuestion/>}/>
+            <Route exact path="/admin/question/answers/:question_id"  element={<Answers/>}/>
+            <Route exact path="/admin/answer/add/:question_id"  element={<AddAnswer/>}/>
          
 
 

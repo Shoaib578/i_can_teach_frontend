@@ -5,6 +5,8 @@ import { register_user } from "../../call_apis";
 import { message } from "antd";
 import axios from "axios";
 import base_url from "../../base_url";
+const user = localStorage.getItem('user')
+
 export default class Register extends React.Component {
     state ={
         email:'',
@@ -12,6 +14,8 @@ export default class Register extends React.Component {
         name:'',
         is_loading:false
     }
+
+
     register = ()=>{
         this.setState({is_loading:true})
       
@@ -29,6 +33,14 @@ export default class Register extends React.Component {
             this.setState({is_loading:false})
             message.error("Something Went Wrong")
         })
+    }
+
+    componentDidMount(){
+        if(user){
+            message.error("Please Login to be able to access")
+           window.location = "/login"
+
+        }
     }
 
 

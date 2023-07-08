@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './index.css'
 import AdminNav from '../../../components/AdminNav'
 import { useNavigate } from "react-router-dom";
-
+import { delete_question, get_questions } from "../../../call_apis";
+import { message } from "antd";
 const Questions = () => {
+    const [data,setData] = useState([]) 
     const navigate = useNavigate()
-    const Answers = () => {
-        navigate('/answers')
+    const Answers = (question_id) => {
+        navigate(`/admin/question/answers/${question_id}`)
     }
+
+    const NavigateAddQuestion=async()=>{
+        const sub_exam_id =await window.location.pathname.split('/')[5]
+
+        navigate(`/admin/question/add/${sub_exam_id}`)
+    }
+
+    const GetQuestions = async()=>{
+        const sub_exam_id =await window.location.pathname.split('/')[5]
+
+        await get_questions(sub_exam_id)
+        .then(res=>{
+            setData(res.data.data)
+        })
+        .catch(err=>{
+            message.error("Something Went Wrong")
+        })
+    }
+
+    const DeleteQuestion = async(question_id)=>{
+        await delete_question(question_id)
+        .then(res=>{
+            if(res.data.is_deleted){
+                message.success("Question Deleted Successfully")
+                GetQuestions()
+            }
+        })
+        .catch(err=>{
+            message.error("Something Went Wrong")
+        })
+
+    }
+    useEffect(()=>{
+
+            GetQuestions()
+        },[])
+    
     return (
         <div className="CreatingSubscriptionBody">
             <AdminNav/>
@@ -17,18 +56,28 @@ const Questions = () => {
     <table class="fl-table">
         <thead>
         <tr>
-            <th>Serial No</th>
-            <th>Title</th>
+            
             <th>Question</th>
+            <th>Score</th>
+
+            <th>Delete</th>
+            <th><button onClick={NavigateAddQuestion} className="DeleteBtn">Add Question</button></th>
+           
+
         </tr>
         </thead>
         <tbody>
-    
-                <tr onClick={() => Answers()} style={{cursor:'pointer'}}>
-                    <td>Serial No</td>
-                    <td>Title</td>
-                    <td>Question</td>
+                {data.map((item,index)=>{
+                    return   <tr key={index} >
+                   
+                    <td onClick={() => Answers(item._id)} style={{cursor:'pointer'}}>{item.question}</td>
+                    <td  >{item.score}</td>
+
+                    <td><button  className="DeleteBtn" onClick={()=>DeleteQuestion(item._id)}>Delete</button></td>
+                    
                 </tr>
+                })}
+              
             
         
         </tbody>
