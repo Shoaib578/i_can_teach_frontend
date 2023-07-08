@@ -87,7 +87,7 @@ const ExamDetails = () => {
 
             <section className="Posters">
                 {data.map((item,index)=>{
-                     return <ExamDetailsContainer item={item} key={index} user_id={parse._id}/>
+                     return <ExamDetailsContainer item={item} key={index} user_id={parse?._id}/>
                 })}
                
              

@@ -20,7 +20,9 @@ export default function ExamDetailsContainer(props){
 
   
     return(
-        <div className="Poster1">
+        <>
+        <div className="Poster1" >
+            <br />
                      <p className="Title">{props.item.title}</p>
                      <p>{props.item.description}</p>
                     
@@ -31,6 +33,8 @@ export default function ExamDetailsContainer(props){
            
 
                      
-                 </div>
+        </div>
+        </>
+
     )
 }

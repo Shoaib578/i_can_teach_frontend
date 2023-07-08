@@ -44,8 +44,9 @@ export default class Login extends React.Component {
 
     componentDidMount(){
         if(user){
-            message.error("Please Login to be able to access")
-           window.location = "/login"
+            message.error("You are already logged in")
+           
+           window.location = "/"
 
         }
     }

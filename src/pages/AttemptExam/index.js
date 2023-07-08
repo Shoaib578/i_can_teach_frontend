@@ -44,14 +44,7 @@ const AttemptExam = () => {
         })
     }
 
-    const NavigateAttemptPaper = (sub_exam_id) => {
-       if(!user){
-        message.error("Please Login to be able to access")
-        return
-       }
-
-        navigate(`/exam/paper/attempt/${sub_exam_id}`)
-    }
+    
 
 
     const CheckExamGiven = async(sub_exam_id)=>{
@@ -77,7 +70,9 @@ const AttemptExam = () => {
 
             <div className="TopHeader">
                 <div className="HeaderContents">
-                    <div className="Logo">
+                    <div style={{cursor:'pointer'}} onClick={()=>{
+                        navigate('/')
+                    }}  className="Logo">
                         <h1>CertBolt</h1>
                     </div>
 

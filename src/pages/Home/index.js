@@ -7,7 +7,7 @@ import { BsPersonCircle } from "react-icons/bs";
 //components
 import ExamDetails from "../../components/ExamDetails";
 import ExamHistory from "../../components/ExamHistory";
-import { get_all_exams } from "../../call_apis";
+
 import { message } from "antd";
 const user = localStorage.getItem('user')
 const Home = () => {
@@ -32,7 +32,9 @@ const Home = () => {
 
             <div className="TopHeader">
                 <div className="HeaderContents">
-                    <div className="Logo">
+                    <div style={{cursor:'pointer'}} onClick={()=>{
+                        navigate('/')
+                    }} className="Logo">
                         <h1>CertBolt</h1>
                     </div>
 
@@ -52,9 +54,30 @@ const Home = () => {
             <nav className="NavBar">
                 <div className="NavBarBtns">
                     <button onClick={() => setPortion(true)}>Exam Details</button>
-                    <button onClick={() => setPortion(false)}>Exam History</button>
+                    <button onClick={() =>{
+                        if(!user){
+                            message.error("You must be logged in to be able to check your exam history")
+                            return
+                        }
+                         setPortion(false)
+                    }}>Exam History</button>
+
+                    {!user?<button onClick={() =>{
+                        if(!user){
+                            navigate('/login')
+                        }else{
+                            message.error("You are already logged in")
+                        }
+                        
+                    }}>Login</button>:null}
                 </div>
-                <BsPersonCircle onClick={() => GotoProfile()} className="Profile"/>
+                <BsPersonCircle onClick={() =>{
+                    if(!user){
+                        message.error("You must be logged in")
+                        return
+                    }
+                    GotoProfile()
+                } } className="Profile"/>
                 
             </nav>
             {

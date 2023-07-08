@@ -20,8 +20,8 @@ const Profile = () => {
         navigate('/membership')
     }
 
-    const logout = ()=>{
-        localStorage.removeItem('user')
+    const logout = async()=>{
+       await localStorage.removeItem('user')
         navigate('/login')
     }
 

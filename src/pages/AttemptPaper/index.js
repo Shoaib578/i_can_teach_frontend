@@ -18,7 +18,7 @@ const AttemptPaper = () => {
         answer_id:null,
         correct:false
     }])
-    const [time,setTime] = useState('')
+   
     const [is_finish,setIsFinish] = useState(false)
     const [finish_loading,setFinishLoading] = useState(false)
     const [score,setScore] = useState(0)
@@ -65,7 +65,7 @@ const AttemptPaper = () => {
     await get_sub_exam_details(sub_exam_id)
     .then(res=>{
         console.log(res.data.data.total_score)
-        setTimer(res.data.data.time)
+        setTimer(res.data.data.time*60)
         setExamScore(res.data.data.total_score)
     })
     .catch(err=>{
@@ -105,25 +105,24 @@ const AttemptPaper = () => {
     console.log(active_answers)
    }
 
-   const Timer = ()=>{
-
-   }
+  
 
    const Finish = async()=>{
     const sub_exam_id = await window.location.pathname.split('/')[4]
 
     setFinishLoading(true)
-    let temp_score = 0
+        let temp_score = 0
      active_answers.forEach((answer)=>{
         console.log(answer.correct)
         if(answer.correct == true){
             // console.log(answer.question_score)
-            temp_score = temp_score+answer.question_score
-            setScore(score+answer.question_score)
+            temp_score = parseInt(temp_score)+parseInt(answer.question_score)
         }
     })
     console.log("Score")
     console.log(temp_score)
+    setScore(temp_score)
+
     await save_exam_history(parse._id,temp_score,sub_exam_id)
     .then(res=>{
         if(res.data.is_added){
@@ -188,7 +187,9 @@ const AttemptPaper = () => {
 
             <div className="TopHeader">
                 <div className="HeaderContents">
-                    <div className="Logo">
+                    <div style={{cursor:'pointer'}} onClick={()=>{
+                        navigate('/')
+                    }}  className="Logo">
                         <h1>CertBolt</h1>
                     </div>
 

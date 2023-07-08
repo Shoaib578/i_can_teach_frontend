@@ -43,7 +43,7 @@ const Membership = () => {
                 <p className="description">{item.description}</p>
                 <button onClick={()=>{
                     if(!user){
-                        message.error("Please Login")
+                        message.error("You must be logged in to be able to purchase membership")
                         return
                     }
 
